@@ -7,9 +7,14 @@ import 'package:todo_app/widgets/dialog_box_button.dart';
 
 class DialogBox extends StatelessWidget {
   final TextEditingController controller;
-  const DialogBox({
+  VoidCallback onSave;
+  VoidCallback onCancel;
+
+  DialogBox({
     super.key,
     required this.controller,
+    required this.onCancel,
+    required this.onSave,
   });
 
   @override
@@ -46,6 +51,7 @@ class DialogBox extends StatelessWidget {
               maxLines: 4,
               minLines: 4,
               enabled: true,
+              controller: controller,
             ),
             Gap(15),
             Row(
@@ -53,12 +59,12 @@ class DialogBox extends StatelessWidget {
               children: [
                 DialogBoxButtom(
                   text: "Save",
-                  onPressed: () {},
+                  onPressed: onSave,
                 ),
                 Gap(20),
                 DialogBoxButtom(
                   text: "Cancel",
-                  onPressed: () {},
+                  onPressed: onCancel,
                 ),
               ],
             ),

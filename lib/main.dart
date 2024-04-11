@@ -15,7 +15,7 @@ class TodoApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.yellow,
-      ),  
+      ),
       home: HomePage(),
     );
   }
