@@ -1,0 +1,5 @@
+{
+    "workbench.colorCustomizations": {
+        "editorIndentGuide.background": "#00000000" // hide via 100% transparency.
+    }
+}
