@@ -86,7 +86,6 @@ class TodoListTile extends StatelessWidget {
                         color: Colors.red,
                       ),
                     ),
-                    
                   ),
                 ],
               ),
