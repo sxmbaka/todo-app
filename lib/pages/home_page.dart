@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
+import 'package:todo_app/data/database.dart';
 import 'package:todo_app/widgets/dialog_box.dart';
 import 'package:todo_app/widgets/todo_list_tile.dart';
 
@@ -13,35 +15,37 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final _myBox = Hive.box('mybox');
+
   final _controller = TextEditingController();
 
-  List toDoList = [
-    ["Make tutorial", false, DateTime(2024)],
-    ["Do the dishes", false, DateTime(2023)],
-  ];
+  TodoDatabase db = TodoDatabase();
 
   void checkBoxChanged(bool? value, int index) {
     setState(() {
-      toDoList[index][1] = !toDoList[index][1];
+      db.toDoList[index][1] = !db.toDoList[index][1];
     });
+    db.updateDatabase();
   }
 
   void saveNewTask() {
     setState(() {
       if (_controller.text.isNotEmpty) {
-        toDoList.add([_controller.text, false, DateTime.now()]);
+        db.toDoList.add([_controller.text, false, DateTime.now()]);
       }
     });
     _controller.clear();
     Navigator.of(context).pop();
+    db.updateDatabase();
   }
 
   void editTask() {}
 
   void deleteTask(int index) {
     setState(() {
-      toDoList.removeAt(index);
+      db.toDoList.removeAt(index);
     });
+    db.updateDatabase();
   }
 
   void createNewTask() {
@@ -56,6 +60,19 @@ class _HomePageState extends State<HomePage> {
         );
       },
     );
+    db.updateDatabase();
+  }
+
+  @override
+  void initState() {
+    if (_myBox.get("TODOLIST") == null) {
+      // no data present
+      db.createInitialData();
+    } else {
+      // data was present
+      db.loadData();
+    }
+    super.initState();
   }
 
   @override
@@ -86,12 +103,12 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       body: ListView.builder(
-        itemCount: toDoList.length,
+        itemCount: db.toDoList.length,
         itemBuilder: (context, index) {
           return TodoListTile(
-            taskName: toDoList[index][0],
-            isTaskComplete: toDoList[index][1],
-            dateTimeCreated: toDoList[index][2],
+            taskName: db.toDoList[index][0],
+            isTaskComplete: db.toDoList[index][1],
+            dateTimeCreated: db.toDoList[index][2],
             onChanged: (value) => checkBoxChanged(value, index),
             onDelete: (context) => deleteTask(index),
             onEdit: editTask,
