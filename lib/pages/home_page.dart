@@ -16,8 +16,8 @@ class _HomePageState extends State<HomePage> {
   final _controller = TextEditingController();
 
   List toDoList = [
-    ["Make tutorial", false],
-    ["Do the dishes", false],
+    ["Make tutorial", false, DateTime(2024)],
+    ["Do the dishes", false, DateTime(2023)],
   ];
 
   void checkBoxChanged(bool? value, int index) {
@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
   void saveNewTask() {
     setState(() {
       if (_controller.text.isNotEmpty) {
-        toDoList.add([_controller.text, false]);
+        toDoList.add([_controller.text, false, DateTime.now()]);
       }
     });
     _controller.clear();
@@ -91,6 +91,7 @@ class _HomePageState extends State<HomePage> {
           return TodoListTile(
             taskName: toDoList[index][0],
             isTaskComplete: toDoList[index][1],
+            dateTimeCreated: toDoList[index][2],
             onChanged: (value) => checkBoxChanged(value, index),
             onDelete: (context) => deleteTask(index),
             onEdit: editTask,
