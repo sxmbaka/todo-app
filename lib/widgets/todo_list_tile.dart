@@ -1,7 +1,5 @@
-import 'dart:js_util';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:gap/gap.dart';
@@ -12,7 +10,7 @@ class TodoListTile extends StatelessWidget {
   final bool isTaskComplete;
   final Function(bool?)? onChanged;
   VoidCallback onEdit;
-  VoidCallback onDelete;
+  Function(BuildContext)? onDelete;
 
   TodoListTile({
     super.key,
@@ -25,62 +23,53 @@ class TodoListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Slidable(
-      endActionPane: ActionPane(
-        motion: StretchMotion(),
-        children: [
-          SlidableAction(
-            onPressed: onDelete,
-            icon: Icons.delete,
-            backgroundColor: Colors.red,
-          ),
-        ],
-      ),
-      child: Container(
-        padding: EdgeInsets.only(
-          left: 5,
-          right: 19,
-          top: 12,
-          bottom: 12,
-        ),
-        margin: EdgeInsets.only(left: 20, right: 20, top: 20),
-        decoration: BoxDecoration(
-          color: Colors.yellow[400],
-          borderRadius: BorderRadius.circular(30),
-        ),
-        child: Row(
+    return Padding(
+      padding: const EdgeInsets.only(left: 12, top: 16, right: 12),
+      child: Slidable(
+        endActionPane: ActionPane(
+          extentRatio: 0.3,
+          motion: StretchMotion(),
           children: [
-            Checkbox(
-              value: isTaskComplete,
-              onChanged: onChanged,
-              activeColor: Colors.black87,
-            ),
-            Expanded(
-              child: Text(
-                taskName,
-                style: GoogleFonts.ubuntu(
-                  fontSize: 17,
-                  decoration: isTaskComplete
-                      ? TextDecoration.lineThrough
-                      : TextDecoration.none,
-                ),
-                maxLines: 5,
-              ),
-            ),
-            GestureDetector(
-              onTap: onEdit,
-              child: Icon(
-                Icons.edit,
-              ),
-            ),
-            Gap(10),
-            GestureDetector(
-              onTap: onDelete,
-              child: Icon(
-                Icons.delete,
-              ),
+            SlidableAction(
+              borderRadius: BorderRadius.circular(30),
+              onPressed: onDelete,
+              icon: Icons.delete,
+              backgroundColor: Colors.red,
             ),
           ],
+        ),
+        child: Container(
+          padding: EdgeInsets.only(
+            left: 5,
+            right: 19,
+            top: 12,
+            bottom: 12,
+          ),
+          decoration: BoxDecoration(
+            color: Colors.yellow[400],
+            borderRadius: BorderRadius.circular(30),
+          ),
+          child: Row(
+            children: [
+              Checkbox(
+                value: isTaskComplete,
+                onChanged: onChanged,
+                activeColor: Colors.black87,
+              ),
+              Expanded(
+                child: Text(
+                  taskName,
+                  style: GoogleFonts.ubuntu(
+                    fontSize: 17,
+                    decoration: isTaskComplete
+                        ? TextDecoration.lineThrough
+                        : TextDecoration.none,
+                  ),
+                  maxLines: 5,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -9,12 +9,14 @@ class DialogBox extends StatelessWidget {
   final TextEditingController controller;
   VoidCallback onSave;
   VoidCallback onCancel;
+  VoidCallback onClear;
 
   DialogBox({
     super.key,
     required this.controller,
     required this.onCancel,
     required this.onSave,
+    required this.onClear,
   });
 
   @override
@@ -27,7 +29,7 @@ class DialogBox extends StatelessWidget {
       ),
       content: Container(
         height: 230,
-        width: 250,
+        width: 300,
         child: Column(
           children: [
             // get user input
@@ -42,7 +44,7 @@ class DialogBox extends StatelessWidget {
             TextField(
               decoration: InputDecoration(
                 focusColor: Colors.black,
-                border: OutlineInputBorder(),
+                border: InputBorder.none,
                 fillColor: Colors.white,
                 hintText: "Add task description!",
                 hintStyle: GoogleFonts.ubuntu(),
@@ -61,10 +63,15 @@ class DialogBox extends StatelessWidget {
                   text: "Save",
                   onPressed: onSave,
                 ),
-                Gap(20),
+                Gap(10),
                 DialogBoxButtom(
                   text: "Cancel",
                   onPressed: onCancel,
+                ),
+                Gap(10),
+                DialogBoxButtom(
+                  text: "Clear",
+                  onPressed: onClear,
                 ),
               ],
             ),

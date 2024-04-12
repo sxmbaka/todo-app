@@ -11,10 +11,13 @@ class DialogBoxButtom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialButton(
+    return ElevatedButton(
       onPressed: onPressed,
-      color: Colors.yellow,
       child: Text(text),
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all<Color>(Colors.yellow),
+        foregroundColor: MaterialStateProperty.all(Colors.black),
+      ),
     );
   }
 }
