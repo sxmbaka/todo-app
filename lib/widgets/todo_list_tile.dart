@@ -7,11 +7,11 @@ class TodoListTile extends StatelessWidget {
   final String taskName;
   final bool isTaskComplete;
   final Function(bool?)? onChanged;
-  VoidCallback onEdit;
-  Function(BuildContext)? onDelete;
+  final VoidCallback onEdit;
+  final Function(BuildContext)? onDelete;
   final DateTime dateTimeCreated;
 
-  TodoListTile({
+  const TodoListTile({
     super.key,
     required this.taskName,
     required this.isTaskComplete,
@@ -31,7 +31,7 @@ class TodoListTile extends StatelessWidget {
           Slidable(
             endActionPane: ActionPane(
               extentRatio: 0.3,
-              motion: StretchMotion(),
+              motion: const StretchMotion(),
               children: [
                 SlidableAction(
                   borderRadius: BorderRadius.circular(30),
@@ -77,7 +77,7 @@ class TodoListTile extends StatelessWidget {
                     ],
                   ),
                   Container(
-                    padding: EdgeInsets.only(right: 10),
+                    padding: const EdgeInsets.only(right: 10),
                     child: Text(
                       DateFormat('HH:mm   MM-dd-yyyy').format(dateTimeCreated),
                       style: GoogleFonts.ubuntu(

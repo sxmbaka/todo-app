@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -7,11 +6,11 @@ import 'package:todo_app/widgets/dialog_box_button.dart';
 
 class DialogBox extends StatelessWidget {
   final TextEditingController controller;
-  VoidCallback onSave;
-  VoidCallback onCancel;
-  VoidCallback onClear;
+  final VoidCallback onSave;
+  final VoidCallback onCancel;
+  final VoidCallback onClear;
 
-  DialogBox({
+  const DialogBox({
     super.key,
     required this.controller,
     required this.onCancel,
@@ -27,7 +26,7 @@ class DialogBox extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
-      content: Container(
+      content: SizedBox(
         height: 230,
         width: 300,
         child: Column(
@@ -40,7 +39,7 @@ class DialogBox extends StatelessWidget {
                 color: Colors.redAccent,
               ),
             ),
-            Gap(8),
+            const Gap(8),
             TextField(
               decoration: InputDecoration(
                 focusColor: Colors.black,
@@ -55,7 +54,7 @@ class DialogBox extends StatelessWidget {
               enabled: true,
               controller: controller,
             ),
-            Gap(15),
+            const Gap(15),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -63,12 +62,12 @@ class DialogBox extends StatelessWidget {
                   text: "Save",
                   onPressed: onSave,
                 ),
-                Gap(10),
+                const Gap(10),
                 DialogBoxButtom(
                   text: "Cancel",
                   onPressed: onCancel,
                 ),
-                Gap(10),
+                const Gap(10),
                 DialogBoxButtom(
                   text: "Clear",
                   onPressed: onClear,

@@ -73,9 +73,6 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: createNewTask,
-        child: Icon(
-          Icons.add,
-        ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
         ),
@@ -84,6 +81,9 @@ class _HomePageState extends State<HomePage> {
         elevation: 4,
         mini: false,
         tooltip: "Add A Task.",
+        child: const Icon(
+          Icons.add,
+        ),
       ),
       body: ListView.builder(
         itemCount: toDoList.length,
